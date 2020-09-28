@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(name="description", content="weather application ")
+        title Document
+        link(href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet")
+        link(rel="stylesheet", href="main.css")
+    body
+        header
+            .container
+                nav.content
+                    h1 mini weather app
+                    form#form
+                        input(type="text", name="country" id="country", placeholder="find another country")
+        main#main
+            .container
+                article.content
+                    section(id="data", class="temp")
+                        div.content1
+                            img(class="temp__icon" alt=" ")
+                            .temp__degree
+                        p.temp__variationTemp
+                        p.temp__description
+                    section(class="blast")
+                        .blast__location
+                            p.blast__location--country
+                            time.blast__location--date
+                        .blast__wind
+                            .blast__wind--speed
+                            .blast__wind--humidity
+        section.waves
+            -for(let i = 1; i < 5; i+= 1)
+                div(class=`waves__wave waves__wave--${i}`)
+
+
+        script(src="app.js")

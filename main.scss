@@ -1,0 +1,316 @@
+//vars
+$mobile: 550px;
+$miniMobile: 300px;
+$miniHeight: 600px;
+$txtColor: #fff;
+
+//mixin
+@mixin flexing($content, $items, $direction) {
+	display: flex;
+	flex-direction: $direction;
+	justify-content: $content;
+	align-items: $items;
+}
+
+@mixin mobile {
+	@media (max-width: #{$mobile}) {
+		@content;
+	}
+}
+
+@mixin miniMobile {
+	@media (max-width: #{$miniMobile}) {
+		@content;
+	}
+}
+
+@mixin miniHeight {
+	@media (max-height: #{$miniHeight}) {
+		@content;
+	}
+}
+
+//animations
+@keyframes changePosition1 {
+	0% {
+		background-position-x: 0;
+	}
+
+	100% {
+		background-position-x: 1000px; //width of wave
+	}
+}
+
+@keyframes changePosition2 {
+	0% {
+		background-position-x: 0;
+	}
+
+	100% {
+		background-position-x: -1000px;
+	}
+}
+
+@keyframes move {
+	0% {
+		transform: translateX(0);
+	}
+
+	100% {
+		transform: translateX(0.7rem);
+	}
+}
+
+@keyframes move2 {
+	0% {
+		transform: translateX(0);
+	}
+
+	100% {
+		transform: translateX(-0.5rem);
+	}
+}
+
+//global classes
+.container {
+	width: 75%;
+	margin: 0 auto;
+
+	@include mobile {
+		width: 90%;
+	}
+}
+
+*,
+*::before,
+*::after {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	min-height: 100vh;
+	position: relative;
+	font-family: 'Teko', sans-serif;
+	background-image: linear-gradient(135deg, #0093e9 0%, #80d0c7 100%);
+	color: $txtColor;
+}
+
+.waves {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	z-index: -1;
+	width: 100%;
+	height: 100vh;
+	max-height: 100vh;
+	overflow: hidden;
+
+	&__wave {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 100px;
+		background-image: url('https://www.linkpicture.com/q/wave.png');
+		background-size: 1000px 100px;
+
+		&--1 {
+			animation: changePosition1 30s linear 0s infinite;
+			opacity: 1;
+			bottom: 0;
+			z-index: 100;
+		}
+
+		&--2 {
+			animation: changePosition2 20s linear -5s infinite;
+			opacity: 0.5;
+			bottom: 10px;
+			z-index: 99;
+		}
+
+		&--3 {
+			animation: changePosition1 30s linear -2s infinite;
+			opacity: 0.2;
+			bottom: 15px;
+			z-index: 98;
+		}
+
+		&--4 {
+			animation: changePosition2 15s linear -5s infinite;
+			opacity: 0.6;
+			bottom: 20px;
+			z-index: 97;
+		}
+	}
+}
+
+header {
+	padding: 2rem 0;
+
+	@include miniHeight {
+		padding: 0.5rem 0;
+	}
+
+	.content {
+		@include flexing(space-between, center, row);
+
+		@include mobile {
+			@include flexing(space-between, center, column);
+		}
+
+		h1 {
+			text-transform: uppercase;
+			font-weight: 700;
+			font-size: 2em;
+		}
+
+		#form {
+			input#country {
+				font-size: 1.2em;
+				text-transform: capitalize;
+				width: 100%;
+				padding: 8px 15px;
+				outline: none;
+				border: none;
+				border-radius: 20px;
+
+				&::placeholder {
+					opacity: 0.5;
+					font-size: 0.8em;
+				}
+			}
+		}
+	}
+}
+
+#main {
+	.content {
+		@include flexing(space-around, center, row-reverse);
+
+		@include mobile {
+			@include flexing(space-around, center, column);
+		}
+
+		@include miniHeight {
+			transform: translateY(-1rem);
+		}
+
+		.temp {
+			@include flexing(flex-start, center, column);
+
+			.content1 {
+				@include flexing(flex-start, center, column);
+
+				@include mobile {
+					@include flexing(flex-start, center, row);
+					order: 1;
+					transform: translateY(-2.5rem);
+				}
+			}
+
+			&__icon {
+				@include mobile {
+					order: 1;
+					margin-right: -2rem;
+					animation: move 2s linear 2s forwards;
+					-webkit-animation: move 2s linear 0.3s forwards;
+				}
+
+				@include miniMobile {
+					animation: none;
+				}
+			}
+
+			&__degree {
+				font-size: 4em;
+
+				@include mobile {
+					font-size: 3.5em;
+					animation: move2 2s linear 0.5s forwards;
+				}
+
+				@include miniMobile {
+					font-size: 3rem;
+					animation: none;
+				}
+			}
+
+			&__variationTemp {
+				font-size: 1.7em;
+
+				@include mobile {
+					order: 2;
+					transform: translateY(-4.5rem);
+				}
+
+				@include miniMobile {
+					font-size: 1.5em;
+				}
+			}
+
+			&__description {
+				font-size: 1.7em;
+				text-transform: capitalize;
+
+				@include mobile {
+					order: 0;
+				}
+
+				@include miniHeight {
+					transform: translateY(1.4rem);
+				}
+			}
+		}
+
+		.blast {
+			@include flexing(space-between, stretch, column);
+			gap: 1.5rem;
+
+			@include mobile {
+				@include flexing(flex-start, stretch, column);
+				transform: translateY(-3.5rem);
+				gap: 0;
+				text-align: center;
+			}
+
+			@include miniHeight {
+				transform: translateY(-4rem);
+			}
+
+			& > * > * {
+				@include mobile {
+					border-bottom: 1px solid rgba($color: $txtColor, $alpha: 0.2);
+				}
+			}
+
+			&__location {
+				&--country {
+					font-size: 2em;
+
+					@include mobile {
+						font-size: 1.5em;
+					}
+				}
+
+				&--date {
+					font-size: 1.5em;
+				}
+			}
+
+			&__wind {
+				text-transform: capitalize;
+
+				&--speed {
+					font-size: 1.5em;
+				}
+
+				&--humidity {
+					font-size: 1.5em;
+				}
+			}
+		}
+	}
+}
