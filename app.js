@@ -34,7 +34,7 @@ const showData = (data) => {
 	const now = new Date();
 	country.innerText = `${name}, ${sys.country}`;
 	currentDate.innerText = showDate(now);
-	icon.src = `http://openweathermap.org/img/wn/${weather[0].icon}@${iconSize}x.png`;
+	icon.innerHTML = `<img src='http://openweathermap.org/img/wn/${weather[0].icon}@${iconSize}x.png' alt='icon'/>`;
 	degree.innerHTML = `${Math.floor(main.temp)}&#8451;`;
 	variation.innerHTML = `${Math.floor(main.temp_max)}&#8451; / ${Math.floor(
 		main.temp_min,
